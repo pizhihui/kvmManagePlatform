@@ -23,7 +23,11 @@ public class VirtMachineInstallServiceTest {
     public void testInstall() {
         MachineInfo info = new MachineInfo();
         info.setIp("10.10.4.210");
-        installService.installVirtMachine(info, "10.10.4.230");
+        info.setName("oracle12c");
+        info.setMem(2);
+        info.setHostIp("10.10.4.230");
+        info.setCpu(2);
+        installService.installVirtMachine(info);
     }
 
 

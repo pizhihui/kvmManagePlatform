@@ -2,17 +2,25 @@ package com.yonyou.findata.util;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 项目名称：账号安全中心(all)   
- * 类名称：DateUtil   
+ * 类名称：DateUtil
  * 类描述：   时间操作工具
- * 创建人：linwu   
- * 创建时间：2014-12-17 上午10:43:08       
  * @version
  */
 public class DateUtil {
+
+	/**
+	 * yyyyMMddHHmm格式的日期
+	 * @param date
+	 * @return
+	 */
+	public static String formatYYYYMMDDHHMM(Date date) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmm");
+		return format.format(date);
+	}
 
 	/**
 	 * 生成ISO-8601 规范的时间格式

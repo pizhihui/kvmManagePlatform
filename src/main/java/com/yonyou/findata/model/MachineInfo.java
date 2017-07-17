@@ -9,6 +9,9 @@ public class MachineInfo implements Serializable {
 
     private String ip;
 
+    /**
+     * 物理机ip
+     */
     private String hostIp;
 
     private Integer cpu;

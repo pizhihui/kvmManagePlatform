@@ -22,6 +22,11 @@ public class MachineProtocol {
      */
     public static final String TEMP_DIR = "/tmp/kvm/";
 
+    /**
+     * 日志目录
+     */
+    public static final String LOG_DIR = "/kvm/logs/";
+
 
 
 

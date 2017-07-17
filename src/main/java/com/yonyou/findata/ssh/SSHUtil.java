@@ -59,13 +59,13 @@ public class SSHUtil {
         try {
             con = getConnection(ip, port, user, password);
             session = con.openSession();
-            session.execCommand(cmd);
+            session.execCommand(cmd); // 执行命令
             InputStream stdout = new StreamGobbler(session.getStdout());
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stdout));
             String line = null;
             int lineNbr = 1;
             while ((line = bufferedReader.readLine()) != null) {
-                System.out.println(lineNbr + " : " + line);
+                System.out.println(lineNbr + " : " + line); // 打印返回的内容
                 lineNbr++;
             }
 

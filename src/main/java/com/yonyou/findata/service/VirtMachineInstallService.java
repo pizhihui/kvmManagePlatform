@@ -15,7 +15,7 @@ public interface VirtMachineInstallService {
      * @param info 虚拟机配置信息
      * @param hostIP 宿主机ip,及物理机ip
      */
-    void installVirtMachine(MachineInfo info, String hostIP);
+    void installVirtMachine(MachineInfo info);
 
 
 }

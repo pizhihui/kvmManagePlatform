@@ -53,9 +53,14 @@ virt-install \
         cmd.append("--os-type=linux \\\n");
         cmd.append("--nographics \\\n");
         cmd.append("--initrd-inject=" + MachineProtocol.CONF_DIR + getConfigFile(name) + " \\\n");
-        cmd.append("-x 'ks=file:/" + getConfigFile(name) + " console=ttyS0'");
+        cmd.append("-x 'ks=file:/" + getConfigFile(name) + " console=ttyS0' \\\n");
+        cmd.append(getLogEcho());
         //logger.info("Kvm install cmd is : {}" + cmd.toString());
         return cmd.toString();
+    }
+
+    private static String getLogEcho() {
+        return String.format(" > kvm-install-%s.log 2>&1 &", MachineProtocol.LOG_DIR);
     }
 
     /**
