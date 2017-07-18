@@ -1,24 +1,29 @@
 package com.yonyou.findata.service.impl;
 
+import ch.ethz.ssh2.Session;
+import ch.ethz.ssh2.StreamGobbler;
+import com.yonyou.findata.dao.MachineInfoMapper;
 import com.yonyou.findata.model.MachineInfo;
+import com.yonyou.findata.model.MachineInfoExample;
 import com.yonyou.findata.protocol.KvmProtocol;
 import com.yonyou.findata.protocol.MachineProtocol;
 import com.yonyou.findata.service.KvmConfigService;
-import com.yonyou.findata.service.VirtMachineInstallService;
+import com.yonyou.findata.service.VirtMachineOpService;
 import com.yonyou.findata.ssh.SSHUtil;
+import com.yonyou.findata.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author: pizhihui
@@ -26,12 +31,14 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class VirtMachineInstallServiceImpl implements VirtMachineInstallService {
+public class VirtMachineOpServiceImpl implements VirtMachineOpService {
 
-    private static final Logger logger = LoggerFactory.getLogger(VirtMachineInstallServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(VirtMachineOpServiceImpl.class);
 
     @Autowired
     private KvmConfigService kvmConfigService;
+    @Autowired
+    private MachineInfoMapper machineInfoMapper;
 
     @Override
     public void installVirtMachine(MachineInfo info) {
@@ -41,8 +48,14 @@ public class VirtMachineInstallServiceImpl implements VirtMachineInstallService 
         // 执行安装命令
         String installCmd = KvmProtocol.getInstallRunShell(info.getMem(), info.getCpu(), info.getName());
         logger.info("start install with cmd : {}", installCmd);
-        SSHUtil.execute(installCmd, info.getHostIp());
+        //SSHUtil.execute(installCmd, info.getHostIp());
+        // 存储数据库
+        info.setState("running"); // 默认状态
+        info.setType(1);
+        machineInfoMapper.insert(info);
     }
+
+
 
 
     // 创建配置文件并拷贝到需要安装虚拟机的物理机的磁盘上

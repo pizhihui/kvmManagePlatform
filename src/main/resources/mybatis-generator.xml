@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-    <!--导入属性配置-->
+    <!-- 导入属性配置 -->
     <properties resource="application.properties"></properties>
     <!-- 制定类路径 -->
     <classPathEntry location="/Users/pizhihui/.m2/repository/tk/mybatis/mapper/3.3.9"/>
@@ -13,6 +13,10 @@
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
         <!-- genenat entity时,生成toString -->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+        <!-- 通用mapper插件 -->
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+        </plugin>
 
         <!-- optional，旨在创建class时，对注释进行控制 -->
         <!-- type="tk.mybatis.mapper.generator.MapperCommentGenerator" -->
@@ -69,17 +73,18 @@
         </javaClientGenerator>
 
         <!-- table是用户指定的被生成相关信息的表，它必须在指定的jdbc连接中已经被建立。?是否可以多个 -->
-        <table tableName="machine_info" domainObjectName="MachineInfo"
-               enableCountByExample="true" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="true"
+        <!--<table tableName="machine_info" domainObjectName="MachineInfo"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
             <columnOverride column="type" javaType="java.lang.Integer" jdbcType="TINYINT" />
-        </table>
+        </table>-->
 
-        <!--<table tableName="kvm_config" domainObjectName="KvmConfig"
-               enableCountByExample="true" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>-->
+        <table tableName="kvm_config" domainObjectName="KvmConfig"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>
 
     </context>
 </generatorConfiguration>

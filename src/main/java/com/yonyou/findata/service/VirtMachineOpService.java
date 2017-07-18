@@ -8,7 +8,7 @@ import java.util.List;
  * @author: pizhihui
  * @datae: 2017-07-14
  */
-public interface VirtMachineInstallService {
+public interface VirtMachineOpService {
 
     /**
      * 安装虚拟机
@@ -16,5 +16,6 @@ public interface VirtMachineInstallService {
      */
     void installVirtMachine(MachineInfo info);
 
+;
 
 }

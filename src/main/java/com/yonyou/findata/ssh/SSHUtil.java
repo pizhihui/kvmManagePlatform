@@ -36,13 +36,14 @@ public class SSHUtil {
         return con;
     }
 
-    /**
-     * 执行命令
-     * @param cmd
-     * @param ip 执行kvm install的ip,应为物理机的ip
-     */
+
     public static void execute(String cmd, String ip) {
         execute(cmd, ip, ConstUtils.SSH_PORT_DEFAULT, ConstUtils.DEFAULT_USERNAME, ConstUtils.DEFAULT_PASSWORD, new DefaultSSHCallBack());
+    }
+
+
+    public static void execute(String cmd, String ip, SSHCallBack callBack) {
+        execute(cmd, ip, ConstUtils.SSH_PORT_DEFAULT, ConstUtils.DEFAULT_USERNAME, ConstUtils.DEFAULT_PASSWORD, callBack);
     }
 
     /**

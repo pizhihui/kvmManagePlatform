@@ -1,12 +1,15 @@
 package com.yonyou.findata;
 
 import com.yonyou.findata.model.MachineInfo;
-import com.yonyou.findata.service.VirtMachineInstallService;
+import com.yonyou.findata.service.MachineInfoService;
+import com.yonyou.findata.service.VirtMachineOpService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 /**
  * @author: pizhihui
@@ -14,10 +17,12 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApplicationStarter.class)
-public class VirtMachineInstallServiceTest {
+public class VirtMachineInstallOpTest {
 
     @Autowired
-    private VirtMachineInstallService installService;
+    private MachineInfoService infoService;
+    @Autowired
+    private VirtMachineOpService opService;
 
     @Test
     public void testInstall() {
@@ -27,8 +32,14 @@ public class VirtMachineInstallServiceTest {
         info.setMem(2);
         info.setHostIp("192.168.197.178");
         info.setCpu(2);
-        installService.installVirtMachine(info);
+        info.setDescription("这是测试用例中的");
+        opService.installVirtMachine(info);
     }
 
+    @Test
+    public void testListMachineByHostIp() {
+        List<MachineInfo> virtMachine = infoService.getVirtMachine("192.168.197.178");
+        virtMachine.forEach(v -> System.out.println(v.toString()));
+    }
 
 }

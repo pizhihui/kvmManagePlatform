@@ -1,6 +1,5 @@
 package com.yonyou.findata.protocol;
 
-import com.yonyou.findata.util.ConstUtils;
 import com.yonyou.findata.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,9 @@ public class KvmProtocol {
 
     private static final Logger logger = LoggerFactory.getLogger(KvmProtocol.class);
 
-    public static final String RUNN_SHELL = "virt-install";
+    public static final String INSTALL_SHELL = "virt-install";
+
+    public static final String LIST_SHELL = "virsh list --all";
 
     public static final String CONFIG_FILE = "ks_%s.cfg";
 
@@ -45,7 +46,7 @@ virt-install \
      */
     public static String getInstallRunShell(int ram, int vcpus, String name) {
         StringBuilder cmd = new StringBuilder();
-        cmd.append(RUNN_SHELL + " \\\n");
+        cmd.append(INSTALL_SHELL + " \\\n");
         cmd.append("--name " + name + " \\\n");
         cmd.append("--virt-type kvm \\\n");
         cmd.append("--ram " + String.valueOf(ram * 1024) + " \\\n");

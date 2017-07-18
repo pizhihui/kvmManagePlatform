@@ -29,7 +29,7 @@ public class MachineInfoDaoTest {
         machineInfo.setIp("192.168.197.128");
         machineInfo.setMem(4);
         machineInfo.setType(1);
-        machineInfo.setDesc("测试数据");
+        machineInfo.setDescription("测试数据");
         machineInfoMapper.insert(machineInfo);
     }
 
