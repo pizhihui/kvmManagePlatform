@@ -12,7 +12,9 @@ public class SSHUtilTest {
     @Test
     public void testExecuteCmd() {
 
-        SSHUtil.execute("netstat -nltp|grep redis-server", "192.168.197.128");
+        //SSHUtil.execute("netstat -nltp|grep redis-server", "192.168.197.128");
+        //> /kvm/logs/test.log 2>&1 &
+        SSHUtil.execute("virsh list --all ", "192.168.197.178");
     }
 
     @Test

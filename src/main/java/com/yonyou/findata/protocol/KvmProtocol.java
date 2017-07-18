@@ -1,8 +1,11 @@
 package com.yonyou.findata.protocol;
 
 import com.yonyou.findata.util.ConstUtils;
+import com.yonyou.findata.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Date;
 
 /**
  * @author: pizhihui
@@ -47,20 +50,20 @@ virt-install \
         cmd.append("--virt-type kvm \\\n");
         cmd.append("--ram " + String.valueOf(ram * 1024) + " \\\n");
         cmd.append("--vcpus " + String.valueOf(vcpus) + " \\\n");
-        cmd.append("--disk " + MachineProtocol.DISK_DIR + "kvm-" + name + ".img,format=qcow2,size=200 \\\n");
+        cmd.append("--disk " + MachineProtocol.DISK_DIR + "kvm-" + name + ".img,format=qcow2,size=10 \\\n");
         cmd.append("--location /opt/CentOS-7-x86_64-DVD-1611.iso  \\\n");
         cmd.append("--network bridge=br0 \\\n");
         cmd.append("--os-type=linux \\\n");
         cmd.append("--nographics \\\n");
         cmd.append("--initrd-inject=" + MachineProtocol.CONF_DIR + getConfigFile(name) + " \\\n");
         cmd.append("-x 'ks=file:/" + getConfigFile(name) + " console=ttyS0' \\\n");
-        cmd.append(getLogEcho());
+        //cmd.append(getLogEcho());
         //logger.info("Kvm install cmd is : {}" + cmd.toString());
         return cmd.toString();
     }
 
     private static String getLogEcho() {
-        return String.format(" > kvm-install-%s.log 2>&1 &", MachineProtocol.LOG_DIR);
+        return String.format(" > %skvm-install-%s.log 2>&1", MachineProtocol.LOG_DIR, DateUtil.formatYYYYMMDDHHMM(new Date()));
     }
 
     /**

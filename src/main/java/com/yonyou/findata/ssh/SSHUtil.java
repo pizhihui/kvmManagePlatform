@@ -42,7 +42,7 @@ public class SSHUtil {
      * @param ip 执行kvm install的ip,应为物理机的ip
      */
     public static void execute(String cmd, String ip) {
-        execute(cmd, ip, ConstUtils.SSH_PORT_DEFAULT, ConstUtils.DEFAULT_USERNAME, ConstUtils.DEFAULT_PASSWORD);
+        execute(cmd, ip, ConstUtils.SSH_PORT_DEFAULT, ConstUtils.DEFAULT_USERNAME, ConstUtils.DEFAULT_PASSWORD, new DefaultSSHCallBack());
     }
 
     /**
@@ -53,21 +53,27 @@ public class SSHUtil {
      * @param user
      * @param password
      */
-    public static void execute(String cmd, String ip, int port, String user, String password) {
+    public static void execute(String cmd, String ip, int port, String user, String password, SSHCallBack callBack) {
         Connection con = null;
         Session session = null;
         try {
             con = getConnection(ip, port, user, password);
             session = con.openSession();
-            session.execCommand(cmd); // 执行命令
-            InputStream stdout = new StreamGobbler(session.getStdout());
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stdout));
-            String line = null;
-            int lineNbr = 1;
-            while ((line = bufferedReader.readLine()) != null) {
-                System.out.println(lineNbr + " : " + line); // 打印返回的内容
-                lineNbr++;
-            }
+            callBack.call(session, cmd);
+//            session.requestPTY("vt100", 80, 24, 640, 480, null);
+//            //session.startShell();
+//            session.execCommand(cmd); // 执行命令
+//            InputStream stdout = new StreamGobbler(session.getStdout());
+//            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stdout));
+//            String line = null;
+//            int lineNbr = 1;
+//            while ((line = bufferedReader.readLine()) != null) {
+//                System.out.println(lineNbr + " : " + line); // 打印返回的内容
+//                if (line.contains("Started Login Service")) { //重启完毕后,已经完成
+//                    break;
+//                }
+//                lineNbr++;
+//            }
 
         } catch (IOException e) {
             logger.error("execute cmd with {} error {}", cmd, e.getMessage(), e);
@@ -112,7 +118,32 @@ public class SSHUtil {
      * 回调函数,具体处理
      */
     public interface SSHCallBack {
-        void call(Session session);
+        void call(Session session, String cmd);
     }
 
+    public static class DefaultSSHCallBack implements SSHCallBack {
+
+        @Override
+        public void call(Session session, String cmd) {
+            try {
+                session.requestPTY("vt100", 80, 24, 640, 480, null);
+                //session.startShell();
+                session.execCommand(cmd); // 执行命令
+                InputStream stdout = new StreamGobbler(session.getStdout());
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stdout));
+                String line = null;
+                int lineNbr = 1;
+                while ((line = bufferedReader.readLine()) != null) {
+                    System.out.println(lineNbr + " : " + line); // 打印返回的内容
+                    if (line.contains("Started Login Service")) { //重启完毕后,已经完成
+                        break;
+                    }
+                    lineNbr++;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
 }

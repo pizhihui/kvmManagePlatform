@@ -35,11 +35,12 @@ public class VirtMachineInstallServiceImpl implements VirtMachineInstallService 
 
     @Override
     public void installVirtMachine(MachineInfo info) {
-        // 生成配置文件
+        // 获取配置项
         List<String> configs = kvmConfigService.getAllConfigs(info.getIp());
-        createRemoteFile(info.getIp(), info.getName(), configs);
+        createRemoteFile(info.getHostIp(), info.getName(), configs);
         // 执行安装命令
         String installCmd = KvmProtocol.getInstallRunShell(info.getMem(), info.getCpu(), info.getName());
+        logger.info("start install with cmd : {}", installCmd);
         SSHUtil.execute(installCmd, info.getHostIp());
     }
 
@@ -66,6 +67,7 @@ public class VirtMachineInstallServiceImpl implements VirtMachineInstallService 
         }
 
         // 将配置文件拷贝到远程机器上
+        logger.info("cp local file to remote machine");
         SSHUtil.scpLocalToRemote(host, tempPathFile, MachineProtocol.CONF_DIR);
     }
 
