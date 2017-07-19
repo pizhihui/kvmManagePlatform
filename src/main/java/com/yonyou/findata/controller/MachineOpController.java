@@ -9,11 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 机器操作
@@ -22,7 +25,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping( value = "/machine")
-public class MachineOpController {
+public class MachineOpController extends BaseController{
 
     @Autowired
     private MachineInfoService machineInfoService;
@@ -77,10 +80,33 @@ public class MachineOpController {
      */
     @RequestMapping(value = "addHostMachine", method = RequestMethod.GET)
     public String addHostMachine(HttpServletRequest request, HttpServletResponse response, Model model) {
-
+        //machineInfoService.addMachine(info);
         return "/machine/machineHostAdd";
     }
 
+    /**
+     * 添加物理机操作
+     */
+    @RequestMapping(value = "addHostMachineOp", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> addHostMachineOp(HttpServletRequest request, HttpServletResponse response, Model model,
+                                 MachineInfo info) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            info.setType(0);
+            info.setState(null);
+            machineInfoService.addMachine(info);
+            result.put("code", "202");
+            result.put("msg", "success");
+            //result = successMessage("successs");
+            System.out.println(info);
+        } catch (Exception e) {
+            result.put("code", "404");
+            result.put("msg", e.getMessage());
+        }
+
+        return result;
+    }
 
 
 }
