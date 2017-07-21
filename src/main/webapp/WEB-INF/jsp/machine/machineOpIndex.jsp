@@ -17,6 +17,8 @@
                                       data-url="/machine/list"
                                       data-toggle="tab">虚拟机统计信息</a></li>
 
+                <li><a href="#machine_snapshot" data-url="/machine/machineSnapshot" data-toggle="tab">快照管理</a></li>
+
                 <li><a href="#machine_install" data-url="/machine/installVirtMachine" data-toggle="tab">安装虚拟机</a></li>
 
                 <li><a href="#machine_host_add" data-url="/machine/addHostMachine" data-toggle="tab">添加物理机</a></li>
@@ -24,6 +26,8 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="machine_list"></div>
+
+                <div class="tab-pane" id="machine_snapshot"></div>
 
                 <div class="tab-pane" id="machine_install"></div>
 

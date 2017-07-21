@@ -46,7 +46,18 @@
                             <td>
                                 <a href="#">修改配置</a>
                                 <a href="#">静态迁移</a>
-                                <a href="#">删除</a>
+                                <c:choose>
+                                    <c:when test="${machine.state == 'shut'}">
+                                        <a href="#">启动</a>
+                                    </c:when>
+                                    <c:when test="${machine.state == 'running'}">
+                                        <a href="#">关闭</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="#">未知</a>
+                                    </c:otherwise>
+                                </c:choose>
+                                <a href="#" onclick="removeMachine('${machine.id}', '${machine.ip}')">删除</a>
                             </td>
                         </tr>
                     </c:forEach>

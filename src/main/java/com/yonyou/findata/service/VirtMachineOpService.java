@@ -16,6 +16,35 @@ public interface VirtMachineOpService {
      */
     void installVirtMachine(MachineInfo info);
 
-;
+    /**
+     * 关闭虚拟机
+     * @param machineId
+     */
+    void shutDownVirtMachine(long machineId);
+
+    /**
+     * 启动虚拟机
+     * @param machineId
+     */
+    void startVirtMachine(long machineId);
+
+    /**
+     * 删除虚拟机
+     * @param machineId
+     */
+    void deleteVirtMachine(long machineId);
+
+    /**
+     * 检查虚拟机状态
+     * @param machineId
+     */
+    String checkVirtMachineStatus(long machineId);
+
+
+
+
+
+
+
 
 }

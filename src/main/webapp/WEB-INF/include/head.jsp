@@ -22,6 +22,9 @@
 
 <!-- user manage -->
 <script type="text/javascript" src="/resources/js/machineHostAdd.js"></script>
+<script type="text/javascript" src="/resources/js/machineInstall.js"></script>
+<script type="text/javascript" src="/resources/js/machineManage.js"></script>
+
 <%--<script type="text/javascript" src="/resources/manage/manage/machineManage.js?<%=System.currentTimeMillis()%>"></script>
 <script type="text/javascript" src="/resources/js/appInit.js?<%=System.currentTimeMillis()%>"></script>
 <script type="text/javascript" src="/resources/js/appStat.js"></script>

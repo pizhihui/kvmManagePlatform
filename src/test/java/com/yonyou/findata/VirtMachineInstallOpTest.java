@@ -42,4 +42,20 @@ public class VirtMachineInstallOpTest {
         virtMachine.forEach(v -> System.out.println(v.toString()));
     }
 
+
+    @Test
+    public void testDeleteVirtMachine() {
+        opService.deleteVirtMachine(28);
+
+    }
+
+    @Test
+    public void testCheckVirtMachineState() {
+        String s = opService.checkVirtMachineStatus(29);
+        System.out.println("....." + s);
+    }
+
+
+
+
 }

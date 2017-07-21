@@ -19,35 +19,35 @@
                     <div class="form-group">
                         <label class="control-label col-md-3">物理机名称:</label>
                         <div class="col-md-7">
-                            <input type="text" name="machineName" value="xxx" id="machineName" class="form-control">
+                            <input type="text" name="machineName" value="" id="machineName" class="form-control" placeholder="名称">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-3">物理机IP:</label>
                         <div class="col-md-7">
-                            <input type="text" name="machineIp" value="10.10.4.230" id="machineIp" class="form-control">
+                            <input type="text" name="machineIp" value="" id="machineIp" class="form-control" placeholder="IP">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-3">物理机CPU核数:</label>
                         <div class="col-md-7">
-                            <input type="text" name="machineCpu" value="2" id="machineCpu" class="form-control">
+                            <input type="text" name="machineCpu" value="" id="machineCpu" class="form-control" placeholder="CPU核数">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-3">物理机内存(G):</label>
                         <div class="col-md-7">
-                            <input type="text" name="machineMem" value="2" id="machineMem" class="form-control">
+                            <input type="text" name="machineMem" value="" id="machineMem" class="form-control" placeholder="内存">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-3">物理机备注:</label>
                         <div class="col-md-7">
-                            <textarea class="form-control" name="machineDesc" rows="3" id="machineDesc" placeholder="应用描述">xxxx</textarea>
+                            <textarea class="form-control" name="machineDesc" rows="3" id="machineDesc" placeholder="应用描述"></textarea>
                         </div>
                     </div>
 

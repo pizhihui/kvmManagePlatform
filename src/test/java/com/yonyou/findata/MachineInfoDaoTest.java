@@ -40,4 +40,8 @@ public class MachineInfoDaoTest {
         Assert.assertEquals("4", machineInfo.getMem().toString());
     }
 
+    @Test
+    public void testDelete() {
+        machineInfoMapper.deleteByPrimaryKey(29L);
+    }
 }

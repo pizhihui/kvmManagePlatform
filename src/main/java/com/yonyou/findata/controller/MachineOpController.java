@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 机器操作
@@ -67,6 +68,15 @@ public class MachineOpController extends BaseController{
     }
 
     /**
+     * 进入快照管理列表页面
+     */
+    @RequestMapping(value = "machineSnapshot", method = RequestMethod.GET)
+    public String machineSnapshot(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+        return "/machine/machineSnapshot";
+    }
+
+    /**
      * 进入安装虚拟机页面
      */
     @RequestMapping(value = "installVirtMachine", method = RequestMethod.GET)
@@ -108,5 +118,71 @@ public class MachineOpController extends BaseController{
         return result;
     }
 
+    /**
+     * 安装虚拟机
+     */
+    @RequestMapping(value = "installVirtMachineOp", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> installVirtMachineOp(HttpServletRequest request, HttpServletResponse response, Model model,
+                                                MachineInfo info) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            System.out.println(info);
+            machineOpService.installVirtMachine(info);
+            //TimeUnit.SECONDS.sleep(10);
+            result.put("code", "202");
+            result.put("msg", "success");
+            //result = successMessage("successs");
+        } catch (Exception e) {
+            result.put("code", "404");
+            result.put("msg", e.getMessage());
+        }
+
+        return result;
+    }
+
+    /**
+     * 检查虚拟机状态
+     */
+    @RequestMapping(value = "checkVirtMachineState", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> doCheckVirtMachineState(HttpServletRequest request, HttpServletResponse response, Model model,
+                                                    long machineId) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            String s = machineOpService.checkVirtMachineStatus(machineId);
+            result.put("code", "202");
+            result.put("msg", "success");
+            result.put("data", s);
+            //result = successMessage("successs");
+        } catch (Exception e) {
+            result.put("code", "404");
+            result.put("msg", e.getMessage());
+        }
+
+        return result;
+    }
+
+    /**
+     * 检查虚拟机状态
+     */
+    @RequestMapping(value = "delete", method = RequestMethod.GET)
+    public String doDelete(HttpServletRequest request, HttpServletResponse response, Model model,
+                                                       long machineId) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            machineOpService.deleteVirtMachine(machineId);
+            System.out.println("ididididid" + String.valueOf(machineId));
+            result.put("code", "202");
+            result.put("msg", "success");
+            result.put("data", "");
+            //result = successMessage("successs");
+        } catch (Exception e) {
+            result.put("code", "404");
+            result.put("msg", e.getMessage());
+        }
+
+        return "redirect:/machine/machineOpIndex";
+    }
 
 }

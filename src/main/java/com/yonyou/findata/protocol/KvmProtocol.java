@@ -20,6 +20,10 @@ public class KvmProtocol {
 
     public static final String CONFIG_FILE = "ks_%s.cfg";
 
+    public static final String SHUTDOWN_SHELL = "virsh shutdown %s";
+    public static final String DESTROY_SHELL = "virsh destroy %s";
+    public static final String UNDEFINE_SHELL = "virsh undefine %s";
+
 
 /*
 virt-install \

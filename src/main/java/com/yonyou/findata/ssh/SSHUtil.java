@@ -122,6 +122,7 @@ public class SSHUtil {
         void call(Session session, String cmd);
     }
 
+    // 默认回到函数: 虚拟机安装
     public static class DefaultSSHCallBack implements SSHCallBack {
 
         @Override
@@ -147,4 +148,26 @@ public class SSHUtil {
 
         }
     }
+
+    public static class DeleteSSHCallBack implements SSHCallBack {
+
+        @Override
+        public void call(Session session, String cmd) {
+            try {
+                //session.startShell();
+                session.execCommand(cmd); // 执行命令
+                InputStream stdout = new StreamGobbler(session.getStdout());
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stdout));
+                String line = null;
+                int lineNbr = 1;
+                while ((line = bufferedReader.readLine()) != null) {
+                    System.out.println(lineNbr + " : " + line); // 打印返回的内容
+                    lineNbr++;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
