@@ -67,6 +67,7 @@ public class VirtMachineOpServiceImpl implements VirtMachineOpService {
 
     }
 
+
     @Override
     public void deleteVirtMachine(long machineId) {
         try {
@@ -120,6 +121,15 @@ public class VirtMachineOpServiceImpl implements VirtMachineOpService {
         });
 
         return status[0];
+    }
+
+    @Override
+    public void editVirtMachineSetting(long machineId, int machineCpu, int machineMem) {
+        MachineInfo machineInfo = machineInfoMapper.selectByPrimaryKey(machineId);
+        SSHUtil.execute(KvmProtocol.getEditCpuShell(machineCpu, machineInfo.getName()), machineInfo.getHostIp(), null);
+        SSHUtil.execute(KvmProtocol.getEditMemShell(machineInfo.getName(), machineMem)[0], machineInfo.getHostIp(), null);
+        SSHUtil.execute(KvmProtocol.EDIT_MEM_TWO_SHELL, machineInfo.getHostIp(), null);
+        // TODO 执行多次命令,该版本的sshutil不适合,并且支持数组命令传入
     }
 
 

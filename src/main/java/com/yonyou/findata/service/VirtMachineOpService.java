@@ -41,6 +41,13 @@ public interface VirtMachineOpService {
     String checkVirtMachineStatus(long machineId);
 
 
+    /**
+     * 修改虚拟机配置
+     * @param machineId
+     * @param machineCpu
+     * @param machineMem
+     */
+    void editVirtMachineSetting(long machineId, int machineCpu, int machineMem);
 
 
 

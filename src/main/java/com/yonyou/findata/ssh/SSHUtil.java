@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
  * @datae: 2017-07-12
  * @version 0.1 简单版本
  */
+@Deprecated
 public class SSHUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(SSHUtil.class);
@@ -38,12 +39,12 @@ public class SSHUtil {
 
 
     public static void execute(String cmd, String ip) {
-        execute(cmd, ip, ConstUtils.SSH_PORT_DEFAULT, ConstUtils.DEFAULT_USERNAME, ConstUtils.DEFAULT_PASSWORD, new DefaultSSHCallBack());
+        execute(cmd, ip, ConstUtils.DEFAULT_SSH_PORT, ConstUtils.DEFAULT_USERNAME, ConstUtils.DEFAULT_PASSWORD, new DefaultSSHCallBack());
     }
 
 
     public static void execute(String cmd, String ip, SSHCallBack callBack) {
-        execute(cmd, ip, ConstUtils.SSH_PORT_DEFAULT, ConstUtils.DEFAULT_USERNAME, ConstUtils.DEFAULT_PASSWORD, callBack);
+        execute(cmd, ip, ConstUtils.DEFAULT_SSH_PORT, ConstUtils.DEFAULT_USERNAME, ConstUtils.DEFAULT_PASSWORD, callBack);
     }
 
     /**
@@ -90,7 +91,7 @@ public class SSHUtil {
     }
 
     public static void scpLocalToRemote(String ip, String locaFile, String remoteDir) {
-        scpLocalToRemote(ip, ConstUtils.SSH_PORT_DEFAULT,
+        scpLocalToRemote(ip, ConstUtils.DEFAULT_SSH_PORT,
                 ConstUtils.DEFAULT_USERNAME,
                 ConstUtils.DEFAULT_PASSWORD,
                 locaFile, remoteDir, "0644");

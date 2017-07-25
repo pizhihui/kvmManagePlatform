@@ -53,7 +53,7 @@ public class MachineInfoServiceImpl implements MachineInfoService {
 
     @Override
     public List<MachineInfo> getVirtMachine(String hostIp) {
-
+        long start = System.currentTimeMillis();
         // 获取当前物理机上的所有虚拟机
         MachineInfo info = new MachineInfo();
         info.setType(1);
@@ -93,7 +93,8 @@ public class MachineInfoServiceImpl implements MachineInfoService {
 
             }
         });
-
+        long end = System.currentTimeMillis();
+        logger.info("total time for list virt machine : " + String.valueOf(end - start));
         return machineInfos;
     }
 

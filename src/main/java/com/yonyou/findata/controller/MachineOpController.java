@@ -3,6 +3,8 @@ package com.yonyou.findata.controller;
 import com.yonyou.findata.model.MachineInfo;
 import com.yonyou.findata.service.MachineInfoService;
 import com.yonyou.findata.service.VirtMachineOpService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,8 @@ import java.util.concurrent.TimeUnit;
 @Controller
 @RequestMapping( value = "/machine")
 public class MachineOpController extends BaseController{
+
+    private static final Logger logger = LoggerFactory.getLogger(MachineOpController.class);
 
     @Autowired
     private MachineInfoService machineInfoService;
@@ -58,11 +62,12 @@ public class MachineOpController extends BaseController{
     public String listMachines(HttpServletRequest request, HttpServletResponse response, Model model) {
         List<MachineInfo> allInfos = new ArrayList<MachineInfo>();
         List<MachineInfo> allHostMachines = machineInfoService.getAllHostMachines();
+        long start = System.currentTimeMillis();
         for (MachineInfo info : allHostMachines) {
             List<MachineInfo> virtMachine = machineInfoService.getVirtMachine(info.getHostIp());
             allInfos.addAll(virtMachine);
         }
-
+        logger.error("controller list machines waste total time is : " + String.valueOf(System.currentTimeMillis() - start));
         model.addAttribute("virtMachines", allInfos);
         return "/machine/machineList";
     }
