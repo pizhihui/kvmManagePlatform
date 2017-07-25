@@ -60,7 +60,7 @@ public class StringUtil {
 	/**
 	 * 判断字符串是否为空
 	 * @param str
-	 * @return
+	 * @return null=true,""=true
 	 */
 	public static boolean isBlank(String str) {
 		int strLen;

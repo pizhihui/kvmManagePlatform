@@ -23,11 +23,12 @@ public class MachineInfoServiceTest {
     public void testTransaction() {
         MachineInfo machineInfo = new MachineInfo();
         machineInfo.setCpu(4);
+        machineInfo.setName("haha");
+        machineInfo.setIp("192.168.197.133");
         machineInfo.setHostIp("192.168.197.2");
-        machineInfo.setIp("192.168.197.130");
         machineInfo.setMem(4);
         machineInfo.setType(1);
-        machineInfo.setDesc("测试数据");
+        machineInfo.setDescription("测试数据");
         machineInfoService.addMachine(machineInfo);
     }
 

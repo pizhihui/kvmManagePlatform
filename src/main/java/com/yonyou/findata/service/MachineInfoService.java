@@ -4,6 +4,8 @@ import com.yonyou.findata.exception.CommonException;
 import com.yonyou.findata.model.MachineInfo;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author: pizhihui
  * @datae: 2017-07-12
@@ -11,7 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MachineInfoService {
 
     /**
-     * 添加机器
+     * 添加物理机器
      * @param machineInfo 机器
      * @throws CommonException 异常
      */
@@ -25,4 +27,22 @@ public interface MachineInfoService {
      */
     MachineInfo getMachineInfoById(Long Id) throws CommonException;
 
+    /**
+     * 获取所在物理机上的虚拟机信息
+     * @param hostIp 物理机ip
+     * @return
+     */
+    List<MachineInfo> getVirtMachine(String hostIp);
+
+    /**
+     * 获取所有物理机上的虚拟机
+     * @return
+     */
+    List<MachineInfo> getAllVirtMachines();
+
+    /**
+     * 获取所有的物理机
+     * @return
+     */
+    List<MachineInfo> getAllHostMachines();
 }
